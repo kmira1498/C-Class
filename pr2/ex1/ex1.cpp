@@ -1,16 +1,16 @@
-// factorial of integer given
+// is a given point enclosed in a given circle?
 #include<iostream>
 #include<cmath>
 using namespace std;
 
-bool pic (int h, int k, int r, int x, int y)
+bool in_circle (double h, double k, double r, double x, int y) // function used to determine if a given point is in a given circle
 { 
-  return (x-h)^2+(y-k)^2 == r^2;
+  return pow((x-h),2)+pow((y-k),2) < r*r;
 }
 
 int main()
 {
-  int h,k,r,x,y;
+  double h,k,r,x,y; // inputs from user for given point and circle
   cout << "The center of a circle is (h,k): " << endl;
   cout << "h: ";
   cin >> h;
@@ -24,10 +24,10 @@ int main()
   cout << "y: ";
   cin >> y;
 
-  bool answer;
-  answer = pic(h,k,r,x,y);
+  bool answer; // assigning a variable to result boolean result of function in_circle
+  answer = in_circle(h,k,r,x,y);
 
-  if (answer == true)
+  if (answer == true) // display answer
     cout << "The point (" << x << ", " << y << ") is in the circle!" << endl; 
   else
     cout << "The point (" << x << ", " << y << ") is not in the circle!" << endl;
