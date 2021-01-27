@@ -47,7 +47,7 @@ int main()
   sum_poly_c = sum(c1, size1, c2, size2, degree_sum);
   cout << "The degree of the sum polynomial is " << degree_sum << endl;
   cout << "The sum of the two polynomials is " << endl;
-  print_poly(sum_poly_c, degree_sum+1);
+  print_poly(sum_poly_c, degree_sum);
   delete [] sum_poly_c;
   sum_poly_c = nullptr;
   cout << "\n\n=========================================\n\n";
@@ -127,28 +127,17 @@ int find_degree(const double *const c, size_t n)
 // A function that sums two polynomials
 double *sum(const double *const c1, size_t size1, const double *const c2, size_t size2, size_t &degree)
 {
-    size_t max_size {};
-    size_t min_size {};
-    const double *long_array {nullptr};
-    if (size1 > size2) {
-        max_size = size1;
-        min_size = size2;
-        long_array = c1;
-    }
-    else {
-        max_size = size2;
-        min_size = size1;
-        long_array = c2;
-    }
-
-    double *result {nullptr};
-    result = new double[max_size] {};
-    for (size_t i{}; i < min_size; i++)
-        result[i] = c1[i] + c2[i];
-    for (size_t i{}; i < max_size; i++)
-        result[i] = long_array[i];
-    degree = find_degree(result, max_size);
-    return result;
+  int max_size = (size1 < size2) ? size2 : size1; 
+  double val = (size1 < size2) ? c2[max_size] : c1[max_size]; 
+  double * result = new double[++max_size];
+  for (int i = 0; i < max_size-1; i++) 
+      result[i] = c1[i] + c2[i];
+  if (size2 != size1)
+      result[max_size - 1] = val;
+  else 
+      result[max_size -1 ] = c1[max_size -1] + c2[max_size -1];
+  degree = find_degree(result, max_size);
+  return result;
 }
 
 // A function that mutiplies two polynomials
