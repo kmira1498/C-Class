@@ -58,7 +58,7 @@ int main()
   prod_poly_ptr = multiply(c1, size1, c2, size2, degree_product);
   cout << "The degree of the product polynomial is " << degree_product << endl;
   cout << "The product of the two polynomials is " << endl;
-  print_poly(prod_poly_ptr, degree_product + 1);
+  print_poly(prod_poly_ptr, degree_product-1);
   delete [] prod_poly_ptr;
   prod_poly_ptr = nullptr;
   delete [] c1;
@@ -144,13 +144,12 @@ double *sum(const double *const c1, size_t size1, const double *const c2, size_t
 double *multiply(const double *const c1, size_t size1, const double *const c2, size_t size2, size_t &degree)
 {
     size_t degree1 {}, degree2 {};
-    degree1 = find_degree(c1, size1);
-    degree2 = find_degree(c2, size2);
-    degree = degree1 + degree2;
+    degree1 = find_degree(c1, size1+1);
+    degree2 = find_degree(c2, size2+1);
+    degree = degree1 + degree2 + 1;
 
-    size_t product_array_size {degree + 1};
-    double *result {nullptr};
-    result = new double[product_array_size] {};
+    size_t product_array_size {degree};
+    double *result = new double[product_array_size] {};
     for (size_t i{}; i<=degree1; i++) {
         if (c1[i] != 0) {   // Saving (degree2 + 1) unnecessary calculations
             for (size_t j{}; j<=degree2; j++)
@@ -159,5 +158,3 @@ double *multiply(const double *const c1, size_t size1, const double *const c2, s
     }
     return result;
 }
-
-// I know the code is very close to working properly but it seems to be cutting off the last element of the polynomial; I have tried to find the issue but I have not been successful :(
