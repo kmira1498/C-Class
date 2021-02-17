@@ -25,7 +25,7 @@ class Patient
     }
     void printReport() //print report of a patient
     {
-      cout << "Patient: " << name << "\n";
+      cout << "Patient " << name << "'s Report\n";
       for (int i = 0;i<vectsys.size();i++)
         {
           cout << "On the following date: "
